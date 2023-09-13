@@ -1,9 +1,13 @@
-import Image from "next/image";
+import Footer from "@/components/ui/structuralComponents/Footer";
+import HeroPage from "@/components/ui/structuralComponents/HeroPage";
+import Movieslist from "@/components/ui/structuralComponents/Movieslist";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="">
-      <div className="">movie app</div>
+    <main className="scroll-smooth">
+      <HeroPage />
+      <Movieslist />
+      <Footer />
     </main>
   );
 }
