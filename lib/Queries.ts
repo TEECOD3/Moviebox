@@ -2,7 +2,7 @@ const apikey = process.env.NEXT_PUBLIC_API_KEY;
 const baseurl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const getmovies = async (queryfield: string) => {
-  const url = `${baseurl}${queryfield}${apikey}`;
+  const url = `https://api.themoviedb.org/3/${queryfield}4bae6b795e5f49dbdc48d8dacdac5b8e`;
 
   try {
     const response = await fetch(url);

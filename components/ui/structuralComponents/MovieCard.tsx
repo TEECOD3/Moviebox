@@ -46,7 +46,7 @@ const MovieCard = (props: Props) => {
     const genre = genres.find((item) => item.id === genreId);
     return genre ? genre.name : "";
   });
-  console.log(origin_country);
+ 
 
   const date = new Date(first_air_date);
 
