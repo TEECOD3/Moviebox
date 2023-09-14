@@ -3,21 +3,67 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type Props = {};
+type movies = {
+  backdrop_path: string;
+  first_air_date: string;
+  genre_ids: [];
+  id: number;
+  name: string;
+  origin_country: [];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+};
+type Props = {
+  movies: movies;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+};
 
 const MovieCard = (props: Props) => {
+  const { movies, genres } = props;
+  const {
+    id,
+    poster_path,
+    origin_country,
+    first_air_date,
+    name,
+    vote_average,
+    popularity,
+    genre_ids,
+  } = movies;
+  const posterUrl = poster_path
+    ? `https://image.tmdb.org/t/p/w1280${poster_path}`
+    : ""; //
+
+  const genreNames = genre_ids.map((genreId) => {
+    const genre = genres.find((item) => item.id === genreId);
+    return genre ? genre.name : "";
+  });
+  console.log(origin_country);
+
+  const date = new Date(first_air_date);
+
+  const year = date.getFullYear();
+
   return (
-    <Link href={`/${20}`}>
+    <Link href={`/${id}`}>
       <div data-testid="movie-card">
-        <div className="  h-[380px] w-full relative overflow-hidden rounded-[20px] border-2 border-gray-200 bg-gray-100">
+        <div className=" h-[420px] lg:h-[380px] w-full relative overflow-hidden rounded-[10px] border-2 border-gray-200 bg-gray-100">
           <Image
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64, ${toBase64(
               shimmer(380, 250)
             )}`}
             priority
-            src="/card.png"
-            alt="BOAT IMAGE"
+            src={posterUrl}
+            alt="imdbimage"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover "
@@ -29,33 +75,41 @@ const MovieCard = (props: Props) => {
             data-testid="movie-release-date"
             className="text-[12px] font-bold text-gray-400"
           >
-            USA 2016 - current
+            USA {year} - current
           </p>
           <h2 data-testid="movie-title" className="font-bold text-[18px] mt-3 ">
-            Stranger things
+            {name}
           </h2>
-          <div className="flex justify-between items-center my-2">
-            <div className="flex gap-x-3 md:w-2/5 ">
-              <Image
-                data-testid="movie-poster"
-                src="/imdb.png"
-                alt="rating image"
-                height={200}
-                width={200}
-                className="h-5 w-10"
-              />
-              <div className="text-xs">860/100</div>
-            </div>
+          <div className="flex w-full  my-2">
+            <div className="w-3/4 flex justify-between items-center">
+              <div className="flex gap-x-3 ">
+                <Image
+                  data-testid="movie-poster"
+                  src="/imdb.png"
+                  alt="rating image"
+                  height={200}
+                  width={200}
+                  className="h-5 w-10"
+                />
+                <div className="text-base">{Math.floor(popularity)}✨</div>
+              </div>
 
-            <div className="flex gap-x-1 text-[12px]">
-              <div className="">🍊</div>
-              <h2>94%</h2>
+              <div className="flex gap-x-1 text-[12px] ">
+                <div className="">🍊</div>
+                <h2 className="text-base">{vote_average * 10}%</h2>
+              </div>
             </div>
           </div>
 
-          <p className="text-[12px] font-bold text-gray-400">
-            adventures , action , horror
-          </p>
+          {genreNames.map((genre, i) => (
+            <span
+              className="text-[12px] font-bold text-gray-400 inline-block"
+              key={i}
+            >
+              {genre}
+              {i !== genreNames.length - 1 && <span className="mx-1">•</span>}
+            </span>
+          ))}
         </div>
       </div>
     </Link>

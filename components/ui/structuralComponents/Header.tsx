@@ -14,7 +14,7 @@ const Header = (props: Props) => {
     return;
   }
   return (
-    <header className=" py-5 fixed z-20 w-screen text-white font-semibold px-4 xl:px-0">
+    <header className=" py-5 fixed z-[300] w-screen text-white font-semibold px-4 xl:px-0 h-33 bg-black/40 ">
       <div className="flex justify-between items-center max-w-7xl mx-auto">
         <div className="flex gap-x-3 items-center w-3/12">
           <Image src="/tvlogo.png" alt="movie logo" height={50} width={50} />
