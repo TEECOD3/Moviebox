@@ -3,8 +3,10 @@ import image from "../../public/moviedetailimage.png";
 import Image from "next/image";
 import { shimmer, toBase64 } from "@/lib/image";
 import { Button } from "@/components/ui/button";
-import { getmoviedetails, getvideos } from "@/lib/Queries";
+import { getmoviedetails, getmovies, getvideos } from "@/lib/Queries";
 import { formatDateToUTC } from "@/lib/utils";
+import { BsTicketFill } from "react-icons/bs";
+import images from "../../public/listmovies.png";
 
 type Props = {
   params: { slug: string };
@@ -14,72 +16,90 @@ type Props = {
 const MovieDetails = async (props: Props) => {
   const { params, searchParams } = props;
   const query = `movie/${params.slug}?api_key=`;
+  const moviedetails = await getmoviedetails(query);
   const videoquery = `movie/${params.slug}/videos?api_key=`;
   const video = await getvideos(videoquery);
+  const videoKey = video.results[0]?.key;
+  console.log(moviedetails);
+  const genrequery = "genre/movie/list?api_key=";
 
-  const moviedetails = await getmoviedetails(query);
-  const posterUrl = searchParams.image
+  const imagerUrl = searchParams.image
     ? `https://image.tmdb.org/t/p/w1280${searchParams.image}`
     : image; // Replace 'default-image.jpg' with your default image path
 
-  const { overview, release_date } = moviedetails;
+  const posterUrl = videoKey ? `https://www.youtube.com/embed/${videoKey}` : "";
+  const { overview, release_date, runtime, vote_average, vote_count, genres } =
+    moviedetails;
+
+  console.log(genres);
+  const hours = Math.floor(runtime / 60);
+  const minutes = runtime % 60;
+
   const formatteddate = formatDateToUTC(release_date);
+
   return (
-    <div className="h-screen px-4 py-4 md:px-10 md:py-10">
+    <div className="h-screen py-4 md:px-10 px-2 md:py-10 w-full ">
       <div className="w-full ">
-        <div className=" px-4  md:px-0 py-6 h-[300px] md:h-[420px] w-full relative overflow-hidden rounded-[20px] border-2 border-gray-200 bg-pink-200">
-          <Image
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64, ${toBase64(
-              shimmer(450, 1100)
-            )}`}
-            priority
-            src={posterUrl}
-            alt="moviedetails image"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1000px) 50vw, 33vw"
-            className="object-cover"
-          />
+        <div className=" md:px-0 py-6 h-[300px] md:h-[420px] w-full relative overflow-hidden">
+          <div className="h-full w-full">
+            {videoKey && (
+              <iframe
+                width="100%"
+                height="420px"
+                src={posterUrl}
+                allowFullScreen
+                title="YouTube Video"
+                className="w-full h-full rounded-xl"
+              ></iframe>
+            )}
+
+            {videoKey === undefined && (
+              <Image
+                src={imagerUrl}
+                alt="hero poster"
+                fill
+                priority
+                className="absolute h-full w-full bg-no-repeat object-cover"
+              />
+            )}
+          </div>
         </div>
-        <div className="w-full  mt-5">
+        <div className="w-full flex flex-col md:flex-row mt-5 gap-x-5">
           <div className="md:w-[60%] flex flex-col">
-            <div className="flex  w-full gap-x-4 items-center">
-              <div className="flex flex-col md:flex-row capitalize text-2xl text-[#404040] gap-x-2 items-center ">
-                <div className="flex gap-x-2">
+            <div className="flex w-full gap-x-4 justify-between items-center">
+              <div className="flex md:w-8/12 flex-col md:flex-row capitalize text-2xl text-[#404040] gap-x-2 md:items-center  md:justify-between">
+                <div className="flex gap-x-2 flex-col md:flex-row">
                   <p
                     data-testid="movie-title"
-                    className="text-sm font-bold text-gray-400"
+                    className="text-sm font-bold text-gray-700"
                   >
                     {searchParams.name}
                   </p>
                   <p
                     data-testid="movie-release-date"
-                    className="text-sm font-bold text-gray-400"
+                    className="text-sm font-bold text-gray-700"
                   >
                     {formatteddate}
                   </p>
-                  <p className="text-base font-bold text-gray-400"> PG:13</p>
+                  <p className="text-base font-bold text-gray-700"> PG:13</p>
                   <p
                     data-testid="movie-runtime"
-                    className="text-base font-bold text-gray-400"
+                    className="text-base font-bold text-gray-700"
                   >
-                    2h 10m
+                    {hours}h {minutes}m
                   </p>
                 </div>
               </div>
-              <div className="flex gap-x-3">
-                <Button
-                  variant="ghost"
-                  className=" px-3 py-0 rounded-[15px] w-[84px] flex-shrink-0 border-gray-300 border-2 "
-                >
-                  action
-                </Button>
-                <Button
-                  variant="ghost"
-                  className=" px-3 py-0 rounded-[15px] w-[84px] flex-shrink-0 border-gray-300 border-2 "
-                >
-                  drama
-                </Button>
+              <div className="flex-1 gap-x-3">
+                {genres.map((gens: any, i: number) => (
+                  <Button
+                    key={i}
+                    variant="ghost"
+                    className=" px-2 py-0 rounded-[15px]  flex-shrink-0 border-gray-200 border-2 text-pink-700"
+                  >
+                    {gens.name}
+                  </Button>
+                ))}
               </div>
             </div>
             <p className="mt-4" data-testid="movie-overview">
@@ -114,7 +134,36 @@ const MovieDetails = async (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex-1"></div>
+          <div className="flex-1">
+            <div className="w-full flex justify-end">
+              <p>
+                ⭐{vote_average} | {vote_count}votes
+              </p>
+            </div>
+
+            <Button className="bg-pink-700 text-white w-[100%] flex gap-x-2 mt-4">
+              <BsTicketFill /> see showtimes
+            </Button>
+            <Button className="bg-pink-700 text-white w-[100%] flex gap-x-2 mt-4">
+              <BsTicketFill /> more watch options
+            </Button>
+
+            <div className=" h-[200px] lg:h-[300px] w-full relative overflow-hidden rounded-[10px] border-2 border-gray-200 bg-pink-200">
+              <Image
+                placeholder="blur"
+                blurDataURL={`data:image/svg+xml;base64, ${toBase64(
+                  shimmer(380, 250)
+                )}`}
+                priority
+                data-testid="movie-poster"
+                src={images}
+                alt="imdbimage"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover "
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

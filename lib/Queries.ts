@@ -24,10 +24,10 @@ export const getmoviedetails = async (slug: string) => {
 };
 
 export const getvideos = async (slug: string) => {
-  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e;`;
+  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e`;
   console.log(url);
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { cache: "no-store" });
 
     return response.json();
   } catch (error) {

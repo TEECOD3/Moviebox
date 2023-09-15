@@ -13,7 +13,7 @@ type props = {
 const Sidebar = ({ children }: props) => {
   return (
     <div className="flex">
-      <div className="fixed border-r-2 rounded-tr-[4rem] border-gray-200 w-20 lg:w-[18rem] h-screen transition-all duration-75 ease-in-out p-4 flex flex-col items-center justify-between">
+      <div className="fixed  border-r-2 rounded-tr-[4rem] border-gray-200 w-14 lg:w-[18rem] h-screen transition-all duration-75 ease-in-out p-4 flex flex-col items-center justify-between">
         {/* logo div */}
         <div className="h-[20%] py-3 lg:py-10 flex gap-x-6 justify-center items-center">
           <div className=" h-12 w-12 relative overflow-hidden rounded-full border-2 border-gray-200 bg-gray-100">
@@ -36,7 +36,7 @@ const Sidebar = ({ children }: props) => {
         </div>
 
         {/* linksdiv */}
-        <div className="flex w-[60%] h-[30%] flex-col items-start justify-around gap-y-14">
+        <div className="flex w-[60%] h-[30%] flex-col items-center md:items-start justify-around gap-y-14">
           <Link href="/">
             <div className="flex gap-x-4 items-center justify-start capitalize ">
               <BiHomeAlt2 className="text-gray-400 text-3xl lg:text-base" />
@@ -92,7 +92,7 @@ const Sidebar = ({ children }: props) => {
           </div>
         </div>
       </div>
-      <main className="ml-20 lg:ml-[18rem] w-full transition-all duration-75 ease-in-out">
+      <main className=" ml-14 md:ml-20 flex-1 lg:ml-[18rem] w-full transition-all duration-75 ease-in-out">
         {children}
       </main>
       ;
