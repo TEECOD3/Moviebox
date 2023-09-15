@@ -20,8 +20,6 @@ const MovieDetails = async (props: Props) => {
   const videoquery = `movie/${params.slug}/videos?api_key=`;
   const video = await getvideos(videoquery);
   const videoKey = video.results[0]?.key;
-  console.log(moviedetails);
-  const genrequery = "genre/movie/list?api_key=";
 
   const imagerUrl = searchParams.image
     ? `https://image.tmdb.org/t/p/w1280${searchParams.image}`

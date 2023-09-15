@@ -1,18 +1,15 @@
-const apikey = process.env.NEXT_PUBLIC_API_KEY;
-const baseurl = process.env.NEXT_PUBLIC_BASE_URL;
-
 export const getmovies = async (queryfield: string) => {
   const url = `https://api.themoviedb.org/3/${queryfield}4bae6b795e5f49dbdc48d8dacdac5b8e`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { cache: "reload" });
     return response.json();
   } catch (error) {
     console.log(error);
   }
 };
 export const getmoviedetails = async (slug: string) => {
-  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e`;
+  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e&language=en-US`;
 
   try {
     const response = await fetch(url);
@@ -24,7 +21,7 @@ export const getmoviedetails = async (slug: string) => {
 };
 
 export const getvideos = async (slug: string) => {
-  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e`;
+  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e&language=en-US`;
   console.log(url);
   try {
     const response = await fetch(url, { cache: "no-store" });
