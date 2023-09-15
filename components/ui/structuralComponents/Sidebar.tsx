@@ -3,7 +3,6 @@ import React, { ReactNode } from "react";
 import { BiCameraMovie, BiHomeAlt2, BiLogOut, BiMovie } from "react-icons/bi";
 import Image from "next/image";
 import tvlogo from "../../../public/tvlogo.png";
-import { IoMdAdd } from "react-icons/io";
 import { Button } from "../button";
 import { TbMovie } from "react-icons/tb";
 import { shimmer, toBase64 } from "@/lib/image";

@@ -40,7 +40,7 @@ const Movieslist = async (props: Props) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mt-10 gap-x-16 gap-y-24">
-        {movies.results.slice(0, 10).map((movie: movies, i: number) => (
+        {movies.results.slice(7, 17).map((movie: movies, i: number) => (
           <MovieCard key={i} movies={movie} genres={genres} />
         ))}
       </div>

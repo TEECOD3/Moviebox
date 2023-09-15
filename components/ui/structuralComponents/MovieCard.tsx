@@ -1,4 +1,5 @@
 import { shimmer, toBase64 } from "@/lib/image";
+import { formatDateToUTC } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -31,6 +32,7 @@ const MovieCard = (props: Props) => {
   const {
     id,
     poster_path,
+    backdrop_path,
     origin_country,
     first_air_date,
     name,
@@ -46,22 +48,22 @@ const MovieCard = (props: Props) => {
     const genre = genres.find((item) => item.id === genreId);
     return genre ? genre.name : "";
   });
- 
 
-  const date = new Date(first_air_date);
-
-  const year = date.getFullYear();
+  // Example usage:
+  const inputDateString = first_air_date;
+  const formattedDate = formatDateToUTC(inputDateString);
 
   return (
-    <Link href={`/${id}`}>
+    <Link href={`/${id}?name=${name}&image=${backdrop_path}`}>
       <div data-testid="movie-card">
-        <div className=" h-[420px] lg:h-[380px] w-full relative overflow-hidden rounded-[10px] border-2 border-gray-200 bg-gray-100">
+        <div className=" h-[420px] lg:h-[380px] w-full relative overflow-hidden rounded-[10px] border-2 border-gray-200 bg-pink-200">
           <Image
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64, ${toBase64(
               shimmer(380, 250)
             )}`}
             priority
+            data-testid="movie-poster"
             src={posterUrl}
             alt="imdbimage"
             fill
@@ -75,7 +77,7 @@ const MovieCard = (props: Props) => {
             data-testid="movie-release-date"
             className="text-[12px] font-bold text-gray-400"
           >
-            USA {year} - current
+            {formattedDate}
           </p>
           <h2 data-testid="movie-title" className="font-bold text-[18px] mt-3 ">
             {name}
@@ -84,14 +86,13 @@ const MovieCard = (props: Props) => {
             <div className="w-3/4 flex justify-between items-center">
               <div className="flex gap-x-3 ">
                 <Image
-                  data-testid="movie-poster"
                   src="/imdb.png"
                   alt="rating image"
                   height={200}
                   width={200}
                   className="h-5 w-10"
                 />
-                <div className="text-base">{Math.floor(popularity)}✨</div>
+                <div className="text-base">{Math.floor(popularity)}k</div>
               </div>
 
               <div className="flex gap-x-1 text-[12px] ">

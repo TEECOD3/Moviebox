@@ -11,7 +11,29 @@ export const getmovies = async (queryfield: string) => {
     console.log(error);
   }
 };
+export const getmoviedetails = async (slug: string) => {
+  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e`;
 
+  try {
+    const response = await fetch(url);
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getvideos = async (slug: string) => {
+  const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e;`;
+  console.log(url);
+  try {
+    const response = await fetch(url);
+
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 // const options = {
 //   method: 'GET',
 //   headers: {

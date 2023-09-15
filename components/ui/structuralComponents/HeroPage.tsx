@@ -28,7 +28,7 @@ const HeroPage = async (props: Props) => {
     : image; // Replace 'default-image.jpg' with your default image path
 
   return (
-    <section className="h-screen bg-no-repeat bg-cover  flex shadow-lg items-center justify-center relative  text-white px-10 xl:px-0">
+    <section className="h-screen bg-no-repeat bg-cover  flex shadow-lg items-center justify-center relative text-white px-10 xl:px-0">
       <Image
         src={posterUrl}
         alt="hero poster"
@@ -80,4 +80,5 @@ const HeroPage = async (props: Props) => {
   );
 };
 
+export const revalidate = 60;
 export default HeroPage;
