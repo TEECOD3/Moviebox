@@ -20,9 +20,6 @@ const MovieDetails = async (props: Props) => {
   const videoquery = `movie/${params.slug}/videos?api_key=`;
   const video = await getvideos(videoquery);
   const videoKey = video.results[0]?.key;
-  const imagerUrl = searchParams.image
-    ? `https://image.tmdb.org/t/p/w1280${searchParams.image}`
-    : image;
 
   const posterUrl = videoKey ? `https://www.youtube.com/embed/${videoKey}` : "";
   const { overview, release_date, runtime, vote_average, vote_count, genres } =
@@ -50,13 +47,9 @@ const MovieDetails = async (props: Props) => {
             )}
 
             {videoKey === undefined && (
-              <Image
-                src={imagerUrl}
-                alt="hero poster"
-                fill
-                priority
-                className="absolute h-full w-full bg-no-repeat object-cover"
-              />
+              <div className="h-full w-full flex items-center justify-center">
+                <p> this movie doesnt have a video</p>
+              </div>
             )}
           </div>
         </div>
