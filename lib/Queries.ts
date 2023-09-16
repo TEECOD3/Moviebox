@@ -20,6 +20,15 @@ export const getmoviedetails = async (slug: string) => {
   }
 };
 
+export default async function getCredits(movieId: number) {
+  const api_url = `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=bae6b795e5f49dbdc48d8dacdac5b8e&language=en-US`;
+  const res = await fetch(api_url);
+
+  if (!res.ok) throw new Error("Cannot get movie details");
+
+  return res.json();
+}
+
 export const getvideos = async (slug: string) => {
   const url = `https://api.themoviedb.org/3/${slug}4bae6b795e5f49dbdc48d8dacdac5b8e&language=en-US`;
   console.log(url);

@@ -1,12 +1,12 @@
 import React from "react";
-import image from "../../public/moviedetailimage.png";
+import image from "../../../../public/moviedetailimage.png";
 import Image from "next/image";
 import { shimmer, toBase64 } from "@/lib/image";
 import { Button } from "@/components/ui/button";
 import { getmoviedetails, getmovies, getvideos } from "@/lib/Queries";
 import { formatDateToUTC } from "@/lib/utils";
 import { BsTicketFill } from "react-icons/bs";
-import images from "../../public/listmovies.png";
+import images from "../../../../public/listmovies.png";
 
 type Props = {
   params: { slug: string };
@@ -20,16 +20,14 @@ const MovieDetails = async (props: Props) => {
   const videoquery = `movie/${params.slug}/videos?api_key=`;
   const video = await getvideos(videoquery);
   const videoKey = video.results[0]?.key;
-
   const imagerUrl = searchParams.image
     ? `https://image.tmdb.org/t/p/w1280${searchParams.image}`
-    : image; // Replace 'default-image.jpg' with your default image path
+    : image;
 
   const posterUrl = videoKey ? `https://www.youtube.com/embed/${videoKey}` : "";
   const { overview, release_date, runtime, vote_average, vote_count, genres } =
     moviedetails;
-
-  console.log(genres);
+  ``;
   const hours = Math.floor(runtime / 60);
   const minutes = runtime % 60;
 

@@ -7,13 +7,13 @@ const MovieDetailsk = (props: Props) => {
   return (
     <div className="h-screen px-4 py-4 md:px-10 md:py-10">
       <div className="w-full ">
-        <div className=" px-4  md:px-0 py-6 h-[300px] md:h-[450px] w-full relative overflow-hidden rounded-[20px] border-2 border-gray-200 bg-gray-100">
+        <div className=" md:px-0 py-6 h-[300px] md:h-[420px] w-full relative overflow-hidden">
           <Skeleton className="object-cover h-full w-full" />
         </div>
         <div className="w-full  mt-5">
           <div className="md:w-[60%] flex flex-col">
             <div className="flex  w-full gap-x-4 items-center">
-              <div className="flex flex-col md:flex-row capitalize text-2xl text-[#404040] gap-x-2 items-center ">
+              <div className="flex flex-col md:flex-row capitalize text-2xl  gap-x-2 items-center ">
                 <div className="flex gap-x-2">
                   <Skeleton
                     data-testid="movie-title"
