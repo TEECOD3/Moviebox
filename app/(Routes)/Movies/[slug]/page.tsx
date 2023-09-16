@@ -22,9 +22,16 @@ const MovieDetails = async (props: Props) => {
   const videoKey = video.results[0]?.key;
 
   const posterUrl = videoKey ? `https://www.youtube.com/embed/${videoKey}` : "";
-  const { overview, release_date, runtime, vote_average, vote_count, genres } =
-    moviedetails;
-  ``;
+  const {
+    overview,
+    release_date,
+    runtime,
+    vote_average,
+    vote_count,
+    genres,
+    original_title,
+  } = moviedetails;
+
   const hours = Math.floor(runtime / 60);
   const minutes = runtime % 60;
 
@@ -62,7 +69,7 @@ const MovieDetails = async (props: Props) => {
                     data-testid="movie-title"
                     className="text-sm font-bold text-gray-700"
                   >
-                    {searchParams.name}
+                    {original_title}
                   </p>
                   <p
                     data-testid="movie-release-date"

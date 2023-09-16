@@ -54,7 +54,7 @@ const MovieCard = (props: Props) => {
   const formattedDate = formatDateToUTC(inputDateString);
 
   return (
-    <Link href={`Movies/${id}?name=${name}`}>
+    <Link href={`Movies/${id}`}>
       <div data-testid="movie-card">
         <div className=" h-[420px] lg:h-[380px] w-full relative overflow-hidden rounded-[10px] border-2 border-gray-200 bg-pink-200">
           <Image
