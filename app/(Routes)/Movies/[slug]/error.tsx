@@ -15,16 +15,18 @@ export default function Error({
   }, [error]);
   const router = useRouter();
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-screen w-full flex items-center justify-center ">
       <h2 className="text-gray-500 font-bold text-sm md:text-base">
         Something went wrong!🛠️
       </h2>
 
       <Button
-        className="bg-pin-400 text-white"
+        className="bg-pink-400 text-white"
         onClick={
           // Attempt to recover by trying to re-render the segment
-          () => { router.push("/")}
+          () => {
+            router.push("/");
+          }
         }
       >
         Try again
