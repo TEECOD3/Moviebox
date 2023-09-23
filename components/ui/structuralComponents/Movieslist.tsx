@@ -24,7 +24,7 @@ type movies = {
 type Props = {};
 
 const Movieslist = async (props: Props) => {
-  const moviequery = `tv/top_rated?api_key=`;
+  const moviequery = `movie/popular?api_key=`;
   const movies = await getmovies(moviequery);
   const genrequery = "genre/movie/list?api_key=";
   const gens = await getmovies(genrequery);
