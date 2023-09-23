@@ -9,7 +9,9 @@ type Props = {};
 
 const HeroPage = async (props: Props) => {
   const searchQuery = "";
-  const moviefilter = searchQuery ? "" : `tv/top_rated?api_key=`;
+  const moviefilter = searchQuery
+    ? ""
+    : `movie/popular?api_key=`;
   const searchfilter = searchQuery
     ? `search/movie?query=${encodeURIComponent(searchQuery)}&api_key=`
     : "";
